@@ -54,7 +54,7 @@ The project focuses on **reusable components, clean UI design, and efficient sta
 ---
 
 ## 📂 Project Structure
-
+```
 project-root/
 │── src/
 │   ├── components/
@@ -72,7 +72,7 @@ project-root/
 │── package.json
 │── vite.config.js
 │── README.md
-
+```
 
 ---
 
@@ -81,13 +81,14 @@ project-root/
 1. Clone the repository
 
 
-2. Install dependencies
+2. Install dependencies-
   npm install
 
-3.   Run the project
+3.   Run the project-
   npm run dev
 
 ## 👩‍💻 Author
 
 ### Aparna Nale
 Frontend Developer | React
+Email : aparna.nale099@gmail.com
