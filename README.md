@@ -79,16 +79,19 @@ project-root/
 ## ⚙️ Installation
 
 1. Clone the repository
-
+ ```bash
+   git clone https://github.com/AparnaNale/almabetter-ecommerce
 
 2. Install dependencies-
+
   npm install
 
 3.   Run the project-
+
   npm run dev
 
 ## 👩‍💻 Author
 
 ### Aparna Nale
 Frontend Developer | React
-Email : aparna.nale099@gmail.com
+📧 Email: aparna.nale099@gmail.com
