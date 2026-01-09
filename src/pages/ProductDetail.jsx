@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { FaCarSide, FaQuestion, FaStar } from 'react-icons/fa'
+import { FaCarSide, FaQuestion, FaStar, FaHeart, FaRegHeart } from 'react-icons/fa'
+import { addToCart } from '../redux/cartSlice'
+import { toggleFavorite } from '../redux/FavSlice'
 
 const ProductDetail = () => {
   const { id } = useParams()
+  const dispatch = useDispatch()
+
   const products = useSelector(state => state.products.data)
+  const favorites = useSelector(state => state.favorites.items)
+
   const [product, setProduct] = useState(null)
+  const [quantity, setQuantity] = useState(1)
 
   useEffect(() => {
     if (products.length > 0) {
-      const newProduct = products.find(
+      const selectedProduct = products.find(
         item => item.id === Number(id)
       )
-      setProduct(newProduct)
+      setProduct(selectedProduct)
     }
   }, [id, products])
 
@@ -25,26 +32,48 @@ const ProductDetail = () => {
     )
   }
 
+  const isFavorite = favorites.some(item => item.id === product.id)
+
+  const handleAddToCart = () => {
+    dispatch(addToCart({ ...product, quantity }))
+  }
+
+  const handleFavorite = () => {
+    dispatch(toggleFavorite(product))
+  }
+
   return (
     <div className="container mx-auto px-4 md:px-12 lg:px-24 py-10">
 
       {/* Product Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 bg-white shadow-lg rounded-xl p-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 bg-white shadow-lg rounded-xl p-6">
 
         {/* Image */}
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center relative">
           <img
             src={product.image}
             alt={product.title}
-            className="h-80 object-contain transition-transform duration-300 hover:scale-105"
+            className="h-72 md:h-80 object-contain h-80 object-contain transition-transform duration-300 hover:scale-110"
           />
+
+          {/* Favorite Button */}
+          <button
+            onClick={handleFavorite}
+            className="absolute top-4 right-4 text-2xl"
+          >
+            {isFavorite ? (
+              <FaHeart className="text-red-600" />
+            ) : (
+              <FaRegHeart className="text-gray-400 hover:text-red-600" />
+            )}
+          </button>
         </div>
 
         {/* Info */}
         <div className="flex flex-col justify-between">
 
           <div>
-            <h1 className="text-3xl font-bold mb-3">
+            <h1 className="text-2xl md:text-3xl font-bold mb-3">
               {product.title}
             </h1>
 
@@ -69,19 +98,24 @@ const ProductDetail = () => {
               </span>
             </div>
 
-            <p className="text-3xl font-semibold text-red-600 mb-6">
+            <p className="text-3xl font-semibold text-yellow-600 mb-6">
               ${product.price}
             </p>
 
             {/* Quantity + Cart */}
-            <div className="flex items-center gap-4 mb-6">
+            <div className="flex flex-col sm:flex-row gap-4 mb-6">
               <input
                 type="number"
                 min="1"
-                defaultValue="1"
-                className="border rounded-md px-3 py-2 w-20"
+                value={quantity}
+                onChange={e => setQuantity(Number(e.target.value))}
+                className="border rounded-md px-3 py-2 w-full sm:w-24"
               />
-              <button className="bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700 transition">
+
+              <button
+                onClick={handleAddToCart}
+                className="bg-yellow-700 text-white px-6 py-2 rounded-md hover:bg-yellow-600 transition w-full sm:w-auto"
+              >
                 Add To Cart
               </button>
             </div>

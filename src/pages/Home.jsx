@@ -43,7 +43,7 @@ const Home = () => {
       <div className="container mx-auto py-6">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="w-full h-[450px] relative rounded-lg overflow-hidden shadow">
-            <img src={HeroImg} alt="Hero" className="h-full w-full object-cover" />
+            <img src={HeroImg} alt="Hero" className="h-full w-full object-cover " />
             <div className="absolute inset-0 bg-black/15"></div>
 
             <div className="absolute top-35 left-10 max-w-md">

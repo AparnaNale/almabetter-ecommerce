@@ -26,19 +26,14 @@ const ProductCard = ({ item }) => {
 
   return (
     <Link to={`/product/${item.id}`} className="h-full">
-      <div className='bg-white p-4 shadow rounded relative border transform transition-transform duration-300 hover:scale-105 '
-        onClick={handleFavorite}>
+      <div className="bg-white p-4 shadow rounded relative border transform transition-transform duration-300 hover:scale-105">
 
-        {/* add to Fav   */}
+        {/* Favorite Button */}
         <button
           onClick={handleFavorite}
-          className="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-white shadow flex items-center justify-center cursor-pointer"
+          className="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-white shadow flex items-center justify-center"
         >
-          {isFav ? (
-            <FaHeart className="text-red-600" />
-          ) : (
-            <FaRegHeart className="text-gray-500" />
-          )}
+          {isFav ? <FaHeart className="text-red-600" /> : <FaRegHeart className="text-gray-500" />}
         </button>
 
         <div className="h-52 p-4 flex items-center justify-center bg-gray-50 rounded-t-2xl">
