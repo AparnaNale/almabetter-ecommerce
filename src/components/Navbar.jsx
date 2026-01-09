@@ -26,6 +26,7 @@ const Navbar = () => {
     e.preventDefault()
     dispatch(setSearchTerm(search))
     navigate('/filter-data')
+    setSearch('')
     setMenuOpen(false)
   }
 
