@@ -22,12 +22,12 @@ const Cart = () => {
             <h3 className="text-2xl font-semibold mb-4">Shopping Cart</h3>
 
             <div className="flex flex-col md:flex-row justify-between md:space-x-10 mt-8">
-
               {/* LEFT SIDE */}
-              <div className="md:w-2/3">
-                <div className="flex justify-between border-b items-center mb-4 text-xs font-bold">
+              <div className="md:w-2/3 w-full">
+             
+                <div className="hidden md:flex justify-between border-b items-center mb-4 text-xs font-bold">
                   <p>PRODUCTS</p>
-                  <div className="flex space-x-8">
+                  <div className="flex space-x-8 ">
                     <p>PRICE</p>
                     <p>QUANTITY</p>
                     <p>SUBTOTAL</p>
@@ -38,42 +38,60 @@ const Cart = () => {
                 {cart.products.map((item) => (
                   <div
                     key={item.id}
-                    className="flex items-center justify-between p-3 border-b"
+                    className="flex flex-col md:flex-row md:items-center md:justify-between p-3 border-b space-y-3 md:space-y-0"
                   >
-                    <div className="flex items-center space-x-1">
+                    {/* Product Info */}
+                    <div className="flex items-center space-x-3 md:w-1/2">
                       <img
                         src={item.image}
                         alt={item.title}
                         className="w-16 h-16 object-contain rounded"
                       />
-                      <h3 className="text-lg font-semibold">{item.title}</h3>
+                      <h3 className="text-sm md:text-lg font-semibold line-clamp-2">
+                        {item.title}
+                      </h3>
                     </div>
 
-                    <div className="flex space-x-9 items-center">
-                      <p>${item.price.toFixed(2)}</p>
+                    {/* Product Actions */}
+                    <div className="flex flex-wrap md:flex-nowrap justify-between md:justify-end gap-4 md:gap-8 items-center text-sm w-full md:w-1/2">
 
-                      <div className="flex items-center border">
-                        <button
-                          className="px-2 text-xl font-bold border-r"
-                          onClick={() => dispatch(decreaseQuantity(item.id))}
-                        >
-                          -
-                        </button>
-
-                        <p className="px-2">{item.quantity}</p>
-
-                        <button
-                          className="px-2 text-xl font-bold border-l"
-                          onClick={() => dispatch(increaseQuantity(item.id))}
-                        >
-                          +
-                        </button>
+                      {/* Price */}
+                      <div className="flex flex-col md:block">
+                        <span className="md:hidden text-gray-500 text-xs">Price</span>
+                        <p>${item.price.toFixed(2)}</p>
                       </div>
 
-                      <p>${(item.quantity * item.price).toFixed(2)}</p>
+                      {/* Quantity */}
+                      <div className="flex flex-col md:block">
+                        <span className="md:hidden text-gray-500 text-xs">Quantity</span>
+                        <div className="flex items-center border">
+                          <button
+                            className="px-2 text-lg font-bold border-r"
+                            onClick={() => dispatch(decreaseQuantity(item.id))}
+                          >
+                            -
+                          </button>
+                          <p className="px-3">{item.quantity}</p>
+                          <button
+                            className="px-2 text-lg font-bold border-l"
+                            onClick={() => dispatch(increaseQuantity(item.id))}
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
 
+                      {/* Subtotal */}
+                      <div className="flex flex-col md:block">
+                        <span className="md:hidden text-gray-500 text-xs">Subtotal</span>
+                        <p className="font-semibold">
+                          ${(item.quantity * item.price).toFixed(2)}
+                        </p>
+                      </div>
+
+                      {/* Remove */}
                       <button
-                        className="text-red-500 hover:text-red-700"
+                        className="text-red-500 hover:text-red-700 self-start md:self-auto"
                         onClick={() => dispatch(removeFromCart(item.id))}
                       >
                         <FaTrashAlt />
@@ -82,6 +100,7 @@ const Cart = () => {
                   </div>
                 ))}
               </div>
+
 
               {/* RIGHT SIDE */}
               <div className="md:w-1/3 bg-white p-6 rounded-lg shadow-md border">
